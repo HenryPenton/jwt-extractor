@@ -1,6 +1,6 @@
 {
   "name": "jwt-extractor",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "A module to extract properties from a JWT token",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
