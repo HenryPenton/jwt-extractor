@@ -32,4 +32,5 @@ const Decoder = new TokenDecoder(token)
 
 Decoder.getPayload() // => payload | undefined
 Decoder.getProperty(propertyName) // => property | undefined
+Decoder.setToken(token) // sets a new token
 ```
