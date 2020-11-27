@@ -15,7 +15,7 @@ npm i jwt-extractor
 Use one of the following functions to retrieve the payload or a payload property.
 
 ```javascript
-import { payloadProperty, payload } from "../index";
+import { payloadProperty, payload } from "jwt-extractor";
 
 payload(token) //=> payload | undefined
 payloadProperty(token, 'propertyName') // => property | undefined
@@ -26,7 +26,7 @@ payloadProperty(token, 'propertyName') // => property | undefined
 Could be useful if you want to return to the class to retrieve something from the payload/the payload itself again in the future without having to re-decode the token.
 
 ```javascript
-import { TokenDecoder } from "../index";
+import { TokenDecoder } from "jwt-extractor";
 
 const Decoder = new TokenDecoder(token)
 
