@@ -7,15 +7,15 @@ export class PayloadExtractor {
 
   constructor(token: string) {
     this._token = token;
-    this._payload = this.setPayload();
-    this._decodedPayload = this.setDecodedPayload();
+    this._payload = this._setPayload();
+    this._decodedPayload = this._setDecodedPayload();
   }
 
-  private setPayload() {
+  private _setPayload() {
     return this._token.split(".")[1];
   }
 
-  private setDecodedPayload() {
+  private _setDecodedPayload() {
     return JSON.parse(decode(this._payload));
   }
 
