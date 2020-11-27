@@ -9,13 +9,16 @@ export class TokenDecoder {
 
   setToken(token: string) {
     const split = token.split(".");
+
     if (split.length > 1) {
       try {
         const payload = split[1];
         this.decodedPayload = JSON.parse(decode(payload));
       } catch {
-        this.decodedPayload = undefined;
+        throw new Error("Couldn't parse token, perhaps it is invalid");
       }
+    } else {
+      throw new Error("Token not long enough");
     }
   }
 
@@ -27,7 +30,7 @@ export class TokenDecoder {
     if (this.decodedPayload) {
       return this.decodedPayload[property];
     } else {
-      return undefined;
+      throw new Error("No payload found");
     }
   }
 }

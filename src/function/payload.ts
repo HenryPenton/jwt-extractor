@@ -6,8 +6,8 @@ export const payload = (token: string) => {
     try {
       return JSON.parse(decode(split[1]));
     } catch {
-      return undefined;
+      throw new Error("Could not parse token, perhaps it is invalid");
     }
   }
-  return undefined;
+  throw new Error("Token not long enough");
 };

@@ -15,11 +15,15 @@ describe("token decoders", () => {
         });
       });
 
-      test("it should return undefined for a poorly formed jwt", () => {
-        expect(payload(poorlyFormedToken)).toBeUndefined();
+      test("should throw an error for a poorly formed jwt", () => {
+        expect(() => payload(poorlyFormedToken)).toThrowError(
+          "Could not parse token, perhaps it is invalid"
+        );
       });
-      test("it should return undefined a jwt with too few sections", () => {
-        expect(payload(onePartToken)).toBeUndefined();
+      test("should throw an error for a jwt with too few sections", () => {
+        expect(() => payload(onePartToken)).toThrowError(
+          "Token not long enough"
+        );
       });
     });
 
@@ -32,17 +36,17 @@ describe("token decoders", () => {
         expect(payloadProperty(testToken, "name")).toBe("John Doe");
       });
 
-      test("it should return undefined for a property that doesn't exist", () => {
+      test("should throw an error for a property that doesn't exist", () => {
         expect(
           payloadProperty(testToken, "randomNonExistentProperty")
         ).toBeUndefined();
       });
 
-      test("it should return undefined for a poorly formed jwt", () => {
-        expect(payloadProperty(poorlyFormedToken, "sub")).toBeUndefined();
+      test("should throw an error for a poorly formed jwt", () => {
+        expect(() => payloadProperty(poorlyFormedToken, "sub")).toThrowError();
       });
-      test("it should return undefined a jwt with too few sections", () => {
-        expect(payloadProperty(onePartToken, "sub")).toBeUndefined();
+      test("should throw an error for a jwt with too few sections", () => {
+        expect(() => payloadProperty(onePartToken, "sub")).toThrowError();
       });
     });
   });
@@ -59,15 +63,19 @@ describe("token decoders", () => {
         });
       });
 
-      test("it should return undefined for a poorly formed jwt", () => {
-        const Decoder = new TokenDecoder(poorlyFormedToken);
+      test("it should throw an error for a poorly formed jwt", () => {
+        let Decoder;
 
-        expect(Decoder.getPayload()).toBeUndefined();
+        expect(
+          () => (Decoder = new TokenDecoder(poorlyFormedToken))
+        ).toThrowError("Couldn't parse token, perhaps it is invalid");
       });
-      test("it should return undefined a jwt with too few sections", () => {
-        const Decoder = new TokenDecoder(onePartToken);
+      test("should throw an error for a jwt with too few sections", () => {
+        let Decoder;
 
-        expect(Decoder.getPayload()).toBeUndefined();
+        expect(() => (Decoder = new TokenDecoder(onePartToken))).toThrowError(
+          "Token not long enough"
+        );
       });
     });
     describe("payload properties", () => {
@@ -81,16 +89,20 @@ describe("token decoders", () => {
         expect(Decoder.getProperty("name")).toBe("John Doe");
       });
 
-      test("it should return undefined for a poorly formed jwt", () => {
-        const Decoder = new TokenDecoder(poorlyFormedToken);
-        expect(Decoder.getProperty("name")).toBeUndefined();
+      test("it should throw an error for a poorly formed jwt", () => {
+        let Decoder;
+        expect(
+          () => (Decoder = new TokenDecoder(poorlyFormedToken))
+        ).toThrowError("Couldn't parse token, perhaps it is invalid");
       });
-      test("it should return undefined a jwt with too few sections", () => {
-        const Decoder = new TokenDecoder(onePartToken);
-        expect(Decoder.getProperty("name")).toBeUndefined();
+      test("it should throw an error a jwt with too few sections", () => {
+        let Decoder;
+        expect(() => (Decoder = new TokenDecoder(onePartToken))).toThrowError(
+          "Token not long enough"
+        );
       });
 
-      test("it should return undefined for a property that doesn't exist", () => {
+      test("should return undefined for a property that doesn't exist", () => {
         const Decoder = new TokenDecoder(testToken);
 
         expect(
