@@ -37,5 +37,22 @@ describe("payload extractor", () => {
         Extractor.getProperty("randomNonExistentProperty")
       ).toBeUndefined();
     });
+
+    test("should be able to change the token and get new properties", () => {
+      const modifiedToken =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJwcmV2aW91c2x5Tm9uRXhpc3RlblByb3BlcnR5IjoidGVzdFZhbHVlMSJ9.aFXmlcQxWUdWaHodfq7UK58oAS5UOXxwiqERtmST7y0";
+
+      const Extractor = new PayloadExtractor(testToken);
+
+      expect(
+        Extractor.getProperty("previouslyNonExistenProperty")
+      ).toBeUndefined();
+
+      Extractor.changeToken(modifiedToken);
+
+      expect(Extractor.getProperty("previouslyNonExistenProperty")).toBe(
+        "testValue1"
+      );
+    });
   });
 });
