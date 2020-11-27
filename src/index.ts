@@ -1,2 +1,3 @@
-export { payloadExtractor } from "./function/payloadExtractor";
-export { PayloadExtractor } from "./class/PayloadExtractor";
+export { payload } from "./function/payload";
+export { payloadProperty } from "./function/payloadProperty";
+export { TokenDecoder } from "./class/TokenDecoder";
