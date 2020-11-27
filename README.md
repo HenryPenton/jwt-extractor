@@ -17,7 +17,7 @@ Use one of the following functions to retrieve the payload or a payload property
 ```javascript
 import { payloadProperty, payload } from "jwt-extractor";
 
-payload(token) //=> payload | undefined
+payload(token) // => payload | undefined
 payloadProperty(token, 'propertyName') // => property | undefined
 ```
 
