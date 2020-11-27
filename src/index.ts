@@ -1,1 +1,1 @@
-export { jwtExtractor } from "./jwtExtractor";
+export { payloadExtractor } from "./payloadExtractor";

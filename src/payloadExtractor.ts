@@ -1,6 +1,6 @@
 import { decode } from "js-base64";
 
-export const jwtExtractor = (token: string, property: string) => {
+export const payloadExtractor = (token: string, property: string) => {
   const payload = token.split(".")[1];
   const decodedpayload = JSON.parse(decode(payload));
   const requestedProperty = decodedpayload[property];
