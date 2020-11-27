@@ -42,17 +42,14 @@ describe("payload extractor", () => {
       const modifiedToken =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJwcmV2aW91c2x5Tm9uRXhpc3RlbnRQcm9wZXJ0eSI6InRlc3RWYWx1ZTEifQ.5l2Afrf7FD_l-E1vUb2GWgHbtv_O-iN0-7mrFrjUWGY";
 
+      const propertyName = "previouslyNonExistentProperty";
       const Extractor = new PayloadExtractor(testToken);
 
-      expect(
-        Extractor.getProperty("previouslyNonExistenProperty")
-      ).toBeUndefined();
+      expect(Extractor.getProperty(propertyName)).toBeUndefined();
 
       Extractor.changeToken(modifiedToken);
 
-      expect(Extractor.getProperty("previouslyNonExistenProperty")).toBe(
-        "testValue1"
-      );
+      expect(Extractor.getProperty(propertyName)).toBe("testValue1");
     });
   });
 });
