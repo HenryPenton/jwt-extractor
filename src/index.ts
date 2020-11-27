@@ -1,1 +1,2 @@
-export { payloadExtractor } from "./payloadExtractor";
+export { payloadExtractor } from "./function/payloadExtractor";
+export { PayloadExtractor } from "./class/PayloadExtractor";
