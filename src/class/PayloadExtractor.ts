@@ -1,24 +1,25 @@
 import { decode } from "js-base64";
 
 export class PayloadExtractor {
-  token: string;
-  payload: string;
-  decodedPayload;
+  private _token: string;
+  private _payload: string;
+  private _decodedPayload;
+
   constructor(token: string) {
-    this.token = token;
-    this.payload = this._setPayload();
-    this.decodedPayload = this._setDecodedPayload();
+    this._token = token;
+    this._payload = this.setPayload();
+    this._decodedPayload = this.setDecodedPayload();
   }
 
-  _setPayload() {
-    return this.token.split(".")[1];
+  private setPayload() {
+    return this._token.split(".")[1];
   }
 
-  _setDecodedPayload() {
-    return JSON.parse(decode(this.payload));
+  private setDecodedPayload() {
+    return JSON.parse(decode(this._payload));
   }
 
   getProperty(property: string) {
-    return this.decodedPayload[property];
+    return this._decodedPayload[property];
   }
 }
