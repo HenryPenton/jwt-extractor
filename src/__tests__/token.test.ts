@@ -50,9 +50,9 @@ describe("token decoders", () => {
   describe("class version", () => {
     describe("payload", () => {
       test("it should be able to return all of the properties using the getPayload method", () => {
-        const Extractor = new TokenDecoder(testToken);
+        const Decoder = new TokenDecoder(testToken);
 
-        expect(Extractor.getPayload()).toEqual({
+        expect(Decoder.getPayload()).toEqual({
           iat: 1516239022,
           name: "John Doe",
           sub: "1234567890",
@@ -60,41 +60,41 @@ describe("token decoders", () => {
       });
 
       test("it should return undefined for a poorly formed jwt", () => {
-        const Extractor = new TokenDecoder(poorlyFormedToken);
+        const Decoder = new TokenDecoder(poorlyFormedToken);
 
-        expect(Extractor.getPayload()).toBeUndefined();
+        expect(Decoder.getPayload()).toBeUndefined();
       });
       test("it should return undefined a jwt with too few sections", () => {
-        const Extractor = new TokenDecoder(onePartToken);
+        const Decoder = new TokenDecoder(onePartToken);
 
-        expect(Extractor.getPayload()).toBeUndefined();
+        expect(Decoder.getPayload()).toBeUndefined();
       });
     });
     describe("payload properties", () => {
       test("it should be able to extract a property from the payload", () => {
-        const Extractor = new TokenDecoder(testToken);
-        expect(Extractor.getProperty("sub")).toBe("1234567890");
+        const Decoder = new TokenDecoder(testToken);
+        expect(Decoder.getProperty("sub")).toBe("1234567890");
       });
 
       test("it should be able to extract a different property from the payload", () => {
-        const Extractor = new TokenDecoder(testToken);
-        expect(Extractor.getProperty("name")).toBe("John Doe");
+        const Decoder = new TokenDecoder(testToken);
+        expect(Decoder.getProperty("name")).toBe("John Doe");
       });
 
       test("it should return undefined for a poorly formed jwt", () => {
-        const Extractor = new TokenDecoder(poorlyFormedToken);
-        expect(Extractor.getProperty("name")).toBeUndefined();
+        const Decoder = new TokenDecoder(poorlyFormedToken);
+        expect(Decoder.getProperty("name")).toBeUndefined();
       });
       test("it should return undefined a jwt with too few sections", () => {
-        const Extractor = new TokenDecoder(onePartToken);
-        expect(Extractor.getProperty("name")).toBeUndefined();
+        const Decoder = new TokenDecoder(onePartToken);
+        expect(Decoder.getProperty("name")).toBeUndefined();
       });
 
       test("it should return undefined for a property that doesn't exist", () => {
-        const Extractor = new TokenDecoder(testToken);
+        const Decoder = new TokenDecoder(testToken);
 
         expect(
-          Extractor.getProperty("randomNonExistentProperty")
+          Decoder.getProperty("randomNonExistentProperty")
         ).toBeUndefined();
       });
 
@@ -103,13 +103,13 @@ describe("token decoders", () => {
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJwcmV2aW91c2x5Tm9uRXhpc3RlbnRQcm9wZXJ0eSI6InRlc3RWYWx1ZTEifQ.5l2Afrf7FD_l-E1vUb2GWgHbtv_O-iN0-7mrFrjUWGY";
 
         const propertyName = "previouslyNonExistentProperty";
-        const Extractor = new TokenDecoder(testToken);
+        const Decoder = new TokenDecoder(testToken);
 
-        expect(Extractor.getProperty(propertyName)).toBeUndefined();
+        expect(Decoder.getProperty(propertyName)).toBeUndefined();
 
-        Extractor.setToken(modifiedToken);
+        Decoder.setToken(modifiedToken);
 
-        expect(Extractor.getProperty(propertyName)).toBe("testValue1");
+        expect(Decoder.getProperty(propertyName)).toBe("testValue1");
       });
     });
   });
