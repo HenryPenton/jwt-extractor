@@ -2,6 +2,8 @@ import { payloadProperty, payload, TokenDecoder } from "../index";
 describe("token decoders", () => {
   const testToken =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
+  const poorlyFormedToken = "abc.def.ghi";
+  const onePartToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9";
 
   describe("function version", () => {
     describe("payload", () => {
@@ -12,7 +14,15 @@ describe("token decoders", () => {
           sub: "1234567890",
         });
       });
+
+      test("it should return undefined for a poorly formed jwt", () => {
+        expect(payload(poorlyFormedToken)).toBeUndefined();
+      });
+      test("it should return undefined a jwt with too few sections", () => {
+        expect(payload(onePartToken)).toBeUndefined();
+      });
     });
+    
     describe("payload property", () => {
       test("it should be able to extract a property from the payload", () => {
         expect(payloadProperty(testToken, "sub")).toBe("1234567890");
@@ -26,6 +36,13 @@ describe("token decoders", () => {
         expect(
           payloadProperty(testToken, "randomNonExistentProperty")
         ).toBeUndefined();
+      });
+
+      test("it should return undefined for a poorly formed jwt", () => {
+        expect(payloadProperty(poorlyFormedToken, "sub")).toBeUndefined();
+      });
+      test("it should return undefined a jwt with too few sections", () => {
+        expect(payloadProperty(onePartToken, "sub")).toBeUndefined();
       });
     });
   });
