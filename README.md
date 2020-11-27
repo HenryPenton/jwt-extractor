@@ -1,21 +1,31 @@
 # Readme
 
+## About
+
+
+
 ## Installation
 
 ```bash
 npm i jwt-extractor
 ```
 
-
-
 ## Use as a function
 
 ```javascript
-import { payloadExtractor } from 'jwt-extractor'
-OR
-const { payloadExtractor } = requrie('jwt-extractor')
+import { payloadProperty, payload } from "../index";
 
-payloadExtractor(token, "propertyName") //=> propertyName | undefined
+payload(token) //=> payload | undefined
+payloadProperty(token, 'propertyName') // => property | undefined
+```
+
+## Use as a Class
+
+```javascript
+import { TokenDecoder } from "../index";
+
+payload(token) //=> payload | undefined
+payloadProperty(token, 'propertyName') // => property | undefined
 ```
 
 

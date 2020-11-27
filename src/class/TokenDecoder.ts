@@ -8,8 +8,15 @@ export class TokenDecoder {
   }
 
   setToken(token: string) {
-    const payload = token.split(".")[1];
-    this.decodedPayload = JSON.parse(decode(payload));
+    const split = token.split(".");
+    if (split.length > 1) {
+      try {
+        const payload = split[1];
+        this.decodedPayload = JSON.parse(decode(payload));
+      } catch {
+        this.decodedPayload = undefined;
+      }
+    }
   }
 
   getPayload() {
@@ -17,6 +24,10 @@ export class TokenDecoder {
   }
 
   getProperty(property: string) {
-    return this.decodedPayload[property];
+    if (this.decodedPayload) {
+      return this.decodedPayload[property];
+    } else {
+      return undefined;
+    }
   }
 }
