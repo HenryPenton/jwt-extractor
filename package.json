@@ -19,6 +19,12 @@
   "files": [
     "lib/**/*"
   ],
+  "keywords": [
+    "jwt",
+    "token",
+    "extractor",
+    "payload"
+  ],
   "scripts": {
     "build": "tsc",
     "lint": "tslint -p tsconfig.json",
